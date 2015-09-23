@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageColor
 
@@ -7,20 +8,18 @@ _upper_cases = _letter_cases.upper()
 _number_cases = ''.join(map(str, xrange(3,10)))     # 去除 0 1 2 
 init_chars = ''.join((_letter_cases,_upper_cases,_number_cases))
 
-def create_validate_code(
-                        size = (120,30),
-                        char = init_chars,
-                        mode = 'RGB',
-                        bg_color = (255,255,255),
-                        font_size = 18,
-                        font_type = 'ae_AlArabiya.ttf',
-                        length = 4,
-                        line_width = 1,
-                        draw_lines = True,
-                        n_line = (1,2),
-                        draw_points = True,
-                        point_chance = 2,
-                        ):
+def create_validate_code(size = (120,30),
+                         char = init_chars,
+                         mode = 'RGB',
+                         bg_color = (255,255,255),
+                         font_size = 18,
+                         font_type = 'ae_AlArabiya.ttf',
+                         length = 4,
+                         line_width = 1,
+                         draw_lines = True,
+                         n_line = (1,2),
+                         draw_points = True,
+                         point_chance = 2):
     width, height = size
     img = Image.new(mode, size, bg_color)   # 创建图形
     draw = ImageDraw.Draw(img)  # 创建画笔
@@ -74,12 +73,10 @@ def create_validate_code(
 
 if __name__ == '__main__':
     code_img, str= create_validate_code()
-    print "str === ",str
-
+    # 使用方法
     # 1、
     # import StringIO
     # buf = StringIO.StringIO()
     # code_img.save(buf, 'JPEG')
     # 2、
-    # code_img.save(str+'.gif', 'GIF')
-    code_img.save(str+'.jpg', 'JPEG')
+    code_img.save('./code/'+str+'.gif', 'GIF')

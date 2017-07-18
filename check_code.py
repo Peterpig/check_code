@@ -1,31 +1,36 @@
 # -*- coding: utf-8 -*-
+
+import os
 import sys
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageColor
 
-_letter_cases =  "abcdefghjkmnpqrstuvwxy"   # 去除i l o z
+_letter_cases = "abcdefghjkmnpqrstuvwxy"   # 去除i l o z
 _upper_cases = _letter_cases.upper()
-_number_cases = ''.join(map(str, xrange(3,10)))     # 去除 0 1 2 
-init_chars = ''.join((_letter_cases,_upper_cases,_number_cases))
+_number_cases = ''.join(map(str, xrange(3, 10)))     # 去除 0 1 2
+init_chars = ''.join((_letter_cases, _upper_cases, _number_cases))
 
-def create_validate_code(size = (120,30),
-                         char = init_chars,
-                         mode = 'RGB',
-                         bg_color = (255,255,255),
-                         font_size = 18,
-                         font_type = 'ae_AlArabiya.ttf',
-                         length = 4,
-                         line_width = 1,
-                         draw_lines = True,
-                         n_line = (1,2),
-                         draw_points = True,
-                         point_chance = 2):
+def create_validate_code(size=(120, 30),
+                         char=init_chars,
+                         mode='RGB',
+                         bg_color=(255, 255, 255),
+                         font_size=18,
+                         font_type='',
+                         length=4,
+                         line_width=1,
+                         draw_lines=True,
+                         n_line=(1, 2),
+                         draw_points=True,
+                         point_chance=2):
     width, height = size
     img = Image.new(mode, size, bg_color)   # 创建图形
     draw = ImageDraw.Draw(img)  # 创建画笔
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+    if not font_type:
+        font_type = BASE_DIR + 'utils/simhei.ttf'
 
     def get_color():
-        colors = ['Black','Orange','Red','Brown','DarkBlue','Purple','DarkCyan','DarkBlue']
+        colors = ['Black', 'Orange', 'Red', 'Brown', 'DarkBlue', 'Purple', 'DarkCyan', 'DarkBlue']
         return ImageColor.getrgb(colors[random.randrange(1,9)-1])
 
     def get_chars():
@@ -79,4 +84,4 @@ if __name__ == '__main__':
     # buf = StringIO.StringIO()
     # code_img.save(buf, 'JPEG')
     # 2、
-    code_img.save('./code/'+str+'.gif', 'GIF')
+    code_img.save('/tmp/img_code/'+str+'.gif', 'GIF')

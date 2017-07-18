@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageColor
 
@@ -31,7 +30,7 @@ def create_validate_code(size=(120, 30),
 
     def get_color():
         colors = ['Black', 'Orange', 'Red', 'Brown', 'DarkBlue', 'Purple', 'DarkCyan', 'DarkBlue']
-        return ImageColor.getrgb(colors[random.randrange(1,9)-1])
+        return ImageColor.getrgb(colors[random.randrange(1, 9)-1])
 
     def get_chars():
         '''返回给定长度的字符串'''
@@ -53,9 +52,9 @@ def create_validate_code(size=(120, 30),
         chance = min(100, max(0, int(point_chance)))
         for w in xrange(width):
             for h in xrange(height):
-                temp = random.randint(0,100)
+                temp = random.randint(0, 100)
                 if temp > 100 - chance:
-                    draw.point((w,h), fill=(0,0,0))
+                    draw.point((w, h), fill=(0, 0, 0))
 
     def create_strs():
         '''绘制验证码'''
@@ -77,11 +76,11 @@ def create_validate_code(size=(120, 30),
     return img, strs
 
 if __name__ == '__main__':
-    code_img, str= create_validate_code()
+    code_img, code_str = create_validate_code()
     # 使用方法
     # 1、
     # import StringIO
     # buf = StringIO.StringIO()
     # code_img.save(buf, 'JPEG')
     # 2、
-    code_img.save('/tmp/img_code/'+str+'.gif', 'GIF')
+    code_img.save('/tmp/img_code/' + code_str + '.gif', 'GIF')
